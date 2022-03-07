@@ -8,7 +8,6 @@ export const SearchForm = () => {
   const [searchWord, setSearchWord] = useState<string>("");
   const submitSearchForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(searchWord);
     dispatch(sendSearch(searchWord));
   };
   return (

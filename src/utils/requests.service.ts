@@ -2,14 +2,11 @@ import { ICompanyDataPayload, ILoginRequest, ILoginResponse, IUserData } from ".
 import api from './api'
 
 class RequestServices {
-    userData = localStorage.getItem('app_user');
+    user:IUserData = JSON.parse(localStorage.getItem('app_user')!);
 
     setUserInLocalStorage(data: IUserData) {
         localStorage.setItem('app_user', JSON.stringify(data))
-    }
-
-    get getUserFromLocalStorage(): IUserData {
-        return JSON.parse(this.userData!)
+        this.user = data;
     }
 
     login(data: ILoginRequest){
@@ -19,18 +16,10 @@ class RequestServices {
         localStorage.removeItem('app_user');
     }
 
-    getPaginatedCompanies1(page: number) {
-        return api.get<ICompanyDataPayload>(`/company?page=${page}`, {
-            headers: {
-                'Authorization': `Bearer ${this.getUserFromLocalStorage.token}`
-            }
-        })
-    }
-
     getPaginatedCompanies({companyName, page}: {companyName?: string, page: number}){
         const options = {
             headers: {
-                'Authorization': `Bearer ${this.getUserFromLocalStorage.token}`
+                'Authorization': `Bearer ${this.user.token}`
             }
         }
         if(companyName){
