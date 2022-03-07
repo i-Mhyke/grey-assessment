@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import indexifyLogo from "../../assets/Indexify.png";
-import { useAppDispatch } from "../../store/hooks";
 import { ILoginRequest } from "../../types";
 import RequestServices from "../../utils/requests.service";
 
 export const LoginPage = () => {
   let navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const [loginData, setLoginData] = useState<ILoginRequest>({ email: "" });
   const submitLoginForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
